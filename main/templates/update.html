@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Exhibit {{exhibit.pk}}</title>
+</head>
+<body>
+    <form action="" method='POST' enctype="multipart/form-data">
+        {%csrf_token%}
+        <p>Title</p>
+    <input type="text" name='title' value="{{exhibit.title}}">
+    <br>
+    <p>Artist</p>
+    <input type="text" name='artist' value="{{exhibit.artist}}">
+    <br>
+    <p>Description</p>
+    <textarea name="description" cols="30" rows="10">{{exhibit.description}}</textarea>
+    <br>
+    {% if exhibit.for_sale %}
+    <input type="checkbox" id="sale" name="sale" value="True" checked>
+    {%else%}
+    <input type="checkbox" id="sale" name="sale" value="True">
+    {%endif%}
+  <label for="sale"> For Sale</label><br>
+  <p>Image</p>
+  <input type="file" name='image'>
+<label for="image">Current = {{exhibit.image}}</label>
+    <button type='submit'>Submit</button>
+</form>
+</body>
+</html>

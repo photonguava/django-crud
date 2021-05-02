@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+</head>
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
+
+<body>
+    <a target="_blank" href="/add-exhibit"><button>Create New Exhibit</button></a>
+    <br>
+    <br>
+    <div id="app">
+        <table>
+            <tr>
+                <th>Identifier</th>
+              <th>Title</th>
+              <th>Artist</th>
+              <th>Date Painted</th>
+              <th>Description</th>
+              <th>For Sale?</th>
+              <th>Preview</th>
+              <th>Price</th>
+              <th>Quantity Available</th>
+              <th>Update</th>
+              <th>Delete</th>
+            </tr>
+            <tr v-for="(exhibit,key) in exhibits">
+                <td>[[exhibit.pk]]</td>
+              <td>[[exhibit.fields.title]]</td>
+              <td>[[exhibit.fields.artist]]</td>
+              <td>[[exhibit.fields.date]]</td>
+              <td>[[exhibit.fields.description]]</td>
+              <td>[[exhibit.fields.for_sale]]</td>
+              <td><a v-bind:href="exhibit.fields.image"><img height=50 width=50 v-bind:src="exhibit.fields.image" ></a></td>
+              <td>[[exhibit.fields.price]]</td>
+              <td>[[exhibit.fields.quantity]]</td>
+              <td><a target="_blank" v-bind:href="'update-exhibit/'+exhibit.pk"><button>Update</button></a></td>
+              <td><button v-bind:onclick="'deleter('+ exhibit.pk + ')'">Delete</button></td>
+            </tr>
+          </table>
+    </div>
+    
+</body>
+<script>
+    var app = new Vue({
+  el: '#app',
+  data: {
+    exhibits: 'Hello Vue!'
+  },
+  delimiters: ['[[',']]']
+})
+
+function deleter(pk){
+    axios.delete("/api/" + pk).then(function (response) {
+    console.log(response.data)
+  })
+}
+
+  var intervalId = window.setInterval(function(){
+    axios.get('/api')
+  .then(function (response) {
+    app.exhibits=response.data;
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+}, 500);
+</script>
+</html>

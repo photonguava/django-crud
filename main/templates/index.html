@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Exhibit</title>
+</head>
+<body>
+    <form action="add-exhibit" method='POST' enctype="multipart/form-data">
+        {%csrf_token%}
+        <p>Title</p>
+    <input type="text" name='title'>
+    <br>
+    <p>Price</p>
+    <input type="text" name='price'>
+    <br>
+    <p>Quantity Available</p>
+    <input type="text" name='quantity'>
+    <br>
+    <p>Artist</p>
+    <input type="text" name='artist'>
+    <br>
+    <p>Description</p>
+    <textarea name="description" cols="30" rows="10"></textarea>
+    <br>
+    <input type="checkbox" id="sale" name="sale" value="True">
+  <label for="sale"> For Sale</label><br>
+  <p>Image</p>
+  <input type="file" name='image'>
+        <p>Date Painted: </p>
+        <input type="date" name='date'>
+    <button type='submit'>Submit</button>
+</form>
+</body>
+</html>
